@@ -11,6 +11,8 @@ if __name__ == '__main__':
 	user_word = input('Введите слово строчными латинскими буквами: ')
 	print('Преобразованное слово:', int_funct(user_word))
 
+	user_str = input('Введите строку из слов, разделенных пробелами: ')
+	print('Преобразованная строка:', int_funct(user_str))
 
 	# user_str = input('Введите строку из слов, разделенных пробелами: ').split()
 	# for i in range(len(user_str)):
