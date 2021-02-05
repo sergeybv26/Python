@@ -1,47 +1,61 @@
-if __name__ == '__main__':
-    from abc import ABC, abstractmethod
 
-    class Clothes(ABC):
-        @abstractmethod
-        def coat(self, size):
-            pass
+from abc import ABC, abstractmethod
 
-        @abstractmethod
-        def suit(self, size):
-            pass
+class Clothes(ABC):
+    
+    @abstractmethod
+    def q_cloth(self):
+        pass
 
-    class Cloth(Clothes):
-        def __init__(self, quantity_cloth=0):
-            self.quantity_cloth = quantity_cloth
-
-        def coat(self, size):
-            self.quantity_cloth = round(size / 6.5 + 0.5, 2)
-
-        def suit(self, size):
-            self.quantity_cloth = round(2 * size + 0.3, 2)
-
-        def __add__(self, other):
-            return Cloth(self.quantity_cloth + other.quantity_cloth)
-
-        def __str__(self):
-            return f'Для пошива одежды потребуется {self.quantity_cloth} м ткани'
-
-        # @property
-        # def quantity_cloth(self):
-        #     return self.__quantity_cloth
-        #
-        # @quantity_cloth.setter
-        # def quantity_cloth(self, type_clothes):
-        #     if type_clothes.lowercase() == 'пальто':
-        #         self.__quantity_cloth = self.size / 6.5 + 0.5
-        #     elif type_clothes.lowercase() == 'костюм':
-        #         self.__quantity_cloth = 2 * self.size + 0.3
-        #
-        # def __add__(self, other):
-        #     return Cloth()
-
-    closes1 = Cloth()
-    closes2 = Cloth()
-    closes1.coat(50)
-    closes2.suit(50)
-    print(closes1 + closes2)
+class Coat(Clothes):
+    
+    def __init__(self, size):
+        self.size = size
+        
+    @property
+    def size(self):
+        return self.__size
+        
+    @size.setter
+    def size(self, size):
+        if size < 30 or size > 72:
+            self.__size = None
+        else:
+            self.__size = size
+            
+    def q_cloth(self):
+        try:
+            return round(self.size/6.5 + 0.5, 2)
+        except Exception:
+            return 'Ошибка в размере пальто! Размер пальто должен быть от 30 до 72.'
+      
+class Suit(Clothes):
+    def __init__(self, height):
+        self.height = height
+        
+    @property
+    def height(self):
+        return self.__height
+        
+    @height.setter
+    def height(self, height):
+        if height < 110 or height > 200:
+            self.__height = None
+        else:
+            self.__height = height
+            
+    def q_cloth(self):
+        try:
+            return round(2 * self.height + 0.3, 2)
+        except Exception:
+            return 'Ошибка в размере костюма! Рост должен быть в диапазоне от 110 до 200 см'
+            
+            
+cl1 = Coat(50)
+print(cl1.q_cloth())
+cl2 = Suit(110)
+print(cl2.q_cloth())
+try:
+    print(f'Для пошива одежды потребуется {cl1.q_cloth() + cl2.q_cloth()} м ткани')
+except TypeError:
+    print('Введен неверный размер одежды!')
