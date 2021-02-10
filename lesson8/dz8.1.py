@@ -52,9 +52,12 @@ if __name__ == '__main__':
     print(date1.parse_date())
     date2 = Data()
     print(date2.parse_date('01-01-1990'))
+    print()
 
     print(Data.valid_date('01-01-1995'))
+    print()
     print(Data.valid_date('29-02-2021'))
+    print()
     print(Data.valid_date('29-02-2020'))
+    print()
     print(Data.valid_date('31-04-2020'))
-    
